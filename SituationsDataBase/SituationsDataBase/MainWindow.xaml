@@ -5,8 +5,122 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SituationsDataBase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:company_easyDataSet x:Key="company_easyDataSet"/>
+        <CollectionViewSource x:Key="order_СustomerViewSource" Source="{Binding Order_Сustomer, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="analysisViewSource" Source="{Binding Analysis, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="productViewSource" Source="{Binding Product, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="contragentViewSource" Source="{Binding Contragent, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="managerViewSource" Source="{Binding Manager, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="billViewSource" Source="{Binding Bill, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="planViewSource" Source="{Binding Plan, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="storageViewSource" Source="{Binding Storage, Source={StaticResource company_easyDataSet}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource order_СustomerViewSource}">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="168,19,0,0" VerticalAlignment="Top" Width="165"  SelectionChanged="comboBox_SelectionChanged">
+            <ComboBoxItem Content="Product" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Contragent" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Order_Customer" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Manager" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Bill" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Plan" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Storage" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Analisys" HorizontalAlignment="Left" Width="163"/>
+        </ComboBox>
+        <DataGrid x:Name="productDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource productViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iD_ProductColumn" Binding="{Binding ID_Product}" Header="ID Product" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="name_ProductColumn" Binding="{Binding Name_Product}" Header="Name Product" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="description_ProductColumn" Binding="{Binding Description_Product}" Header="Description Product" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="price_ProductColumn" Binding="{Binding Price_Product}" Header="Price Product" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="contragentDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource contragentViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="name_ContragentColumn" Binding="{Binding Name_Contragent}" Header="Name Contragent" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iNN_ContragentColumn" Binding="{Binding INN_Contragent}" Header="INN Contragent" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="address_ContragentColumn" Binding="{Binding Address_Contragent}" Header="Address Contragent" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_CompanyColumn" Binding="{Binding ID_Company}" Header="ID Company" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="order_СustomerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iD_OrderColumn" Binding="{Binding ID_Order}" Header="ID Order" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="amount_ProductColumn" Binding="{Binding Amount_Product}" Header="Amount Product" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="data_Start_OrderColumn" Header="Data Start Order" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Data_Start_Order, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn x:Name="data_Finish_OrderColumn" Header="Data Finish Order" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Data_Finish_Order, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="ready_OrderColumn" Binding="{Binding Ready_Order}" Header="Ready Order" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_ManagerColumn" Binding="{Binding ID_Manager}" Header="ID Manager" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_CompanyColumn1" Binding="{Binding ID_Company}" Header="ID Company" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_PlanColumn" Binding="{Binding ID_Plan}" Header="ID Plan" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_ProductColumn1" Binding="{Binding ID_Product}" Header="ID Product" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="managerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource managerViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iD_ManagerColumn1" Binding="{Binding ID_Manager}" Header="ID Manager" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="name_ManagerColumn" Binding="{Binding Name_Manager}" Header="Name Manager" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="billDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource billViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn x:Name="date_PaymentColumn" Header="Date Payment" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Date_Payment, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="iD_OrderColumn1" Binding="{Binding ID_Order}" Header="ID Order" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="planDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource planViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="unfinished_orderColumn" Binding="{Binding Unfinished_order}" Header="Unfinished order" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="clientsColumn" Binding="{Binding Clients}" Header="Clients" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="salesColumn" Binding="{Binding Sales}" Header="Sales" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="aVG_salesColumn" Binding="{Binding AVG_sales}" Header="AVG sales" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_PlanColumn1" Binding="{Binding ID_Plan}" Header="ID Plan" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="storageDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource storageViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="amount_ProductColumn1" Binding="{Binding Amount_Product}" Header="Amount Product" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_ProductColumn2" Binding="{Binding ID_Product}" Header="ID Product" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="analysisDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource analysisViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="sales_volumeColumn" Binding="{Binding Sales_volume}" Header="Sales volume" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="number_New_ClientColumn" Binding="{Binding Number_New_Client}" Header="Number New Client" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="unfinished_ordersColumn" Binding="{Binding Unfinished_orders}" Header="Unfinished orders" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="time_NowColumn" Header="Time Now" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding Time_Now, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="avg_Sale_VolumeColumn" Binding="{Binding Avg_Sale_Volume}" Header="Avg Sale Volume" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_AnalysisColumn" Binding="{Binding ID_Analysis}" Header="ID Analysis" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="iD_PlanColumn2" Binding="{Binding ID_Plan}" Header="ID Plan" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="saveButton" Content="Save Changes" HorizontalAlignment="Left" Margin="368,19,0,0" VerticalAlignment="Top" Width="89" Height="22" Click="saveButton_Click"/>
+        <Button x:Name="button" Content="Analise" HorizontalAlignment="Left" Margin="368,57,0,0" VerticalAlignment="Top" Width="89" Click="button_Click"/>
+
     </Grid>
 </Window>
