@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,8 +31,10 @@ namespace SituationsDataBase
         public SituationsDataBase.company_easyDataSetTableAdapters.ProductTableAdapter company_easyDataSetProductTableAdapter;
         public SituationsDataBase.company_easyDataSetTableAdapters.StorageTableAdapter company_easyDataSetStorageTableAdapter;
         public SituationsDataBase.company_easyDataSetTableAdapters.AnalysisTableAdapter company_easyDataSetAnalysisTableAdapter;
+        public SituationsDataBase.company_easyDataSetTableAdapters.AnalyzerTableAdapter company_easyDataSetAnalyzerTableAdapter;
+        public System.Windows.Data.CollectionViewSource analysisViewSource;
+        public System.Windows.Data.CollectionViewSource analyzerViewSource;
         public company_easyDataSetTableAdapters.QueriesTableAdapter queriesTableAdapter;
-
 
 
         public MainWindow()
@@ -45,7 +48,9 @@ namespace SituationsDataBase
             planDataGrid.Visibility = Visibility.Hidden;
             storageDataGrid.Visibility = Visibility.Hidden;
             analysisDataGrid.Visibility = Visibility.Hidden;
+            analyzerDataGrid.Visibility = Visibility.Hidden;
             analysisDataGrid.IsReadOnly = true;
+            analyzerDataGrid.IsReadOnly = true;
 
         }
 
@@ -61,7 +66,7 @@ namespace SituationsDataBase
             // Загрузить данные в таблицу Analysis. Можно изменить этот код как требуется.
             company_easyDataSetAnalysisTableAdapter = new SituationsDataBase.company_easyDataSetTableAdapters.AnalysisTableAdapter();
             company_easyDataSetAnalysisTableAdapter.Fill(company_easyDataSet.Analysis);
-            System.Windows.Data.CollectionViewSource analysisViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("analysisViewSource")));
+            analysisViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("analysisViewSource")));
             analysisViewSource.View.MoveCurrentToFirst();
 
             // Загрузить данные в таблицу Product. Можно изменить этот код как требуется.
@@ -94,6 +99,11 @@ namespace SituationsDataBase
             company_easyDataSetStorageTableAdapter.Fill(company_easyDataSet.Storage);
             System.Windows.Data.CollectionViewSource storageViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("storageViewSource")));
             storageViewSource.View.MoveCurrentToFirst();
+            // Загрузить данные в таблицу Analyzer. Можно изменить этот код как требуется.
+            company_easyDataSetAnalyzerTableAdapter = new SituationsDataBase.company_easyDataSetTableAdapters.AnalyzerTableAdapter();
+            company_easyDataSetAnalyzerTableAdapter.Fill(company_easyDataSet.Analyzer);
+            analyzerViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("analyzerViewSource")));
+            analyzerViewSource.View.MoveCurrentToFirst();
         }
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -108,6 +118,7 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Hidden;
                 storageDataGrid.Visibility = Visibility.Hidden;
                 analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
 
             }
             if (comboBox.SelectedIndex == 1)
@@ -120,6 +131,7 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Hidden;
                 storageDataGrid.Visibility = Visibility.Hidden;
                 analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
 
             }
             if (comboBox.SelectedIndex == 2)
@@ -132,6 +144,7 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Hidden;
                 storageDataGrid.Visibility = Visibility.Hidden;
                 analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
 
             }
             if (comboBox.SelectedIndex == 3)
@@ -144,6 +157,7 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Hidden;
                 storageDataGrid.Visibility = Visibility.Hidden;
                 analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
 
             }
             if (comboBox.SelectedIndex == 4)
@@ -156,6 +170,7 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Hidden;
                 storageDataGrid.Visibility = Visibility.Hidden;
                 analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
 
             }
             if (comboBox.SelectedIndex == 5)
@@ -168,6 +183,7 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Visible;
                 storageDataGrid.Visibility = Visibility.Hidden;
                 analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
             }
             if (comboBox.SelectedIndex == 6)
             {
@@ -179,6 +195,7 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Hidden;
                 storageDataGrid.Visibility = Visibility.Visible;
                 analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
             }
             if(comboBox.SelectedIndex == 7)
             {
@@ -190,28 +207,115 @@ namespace SituationsDataBase
                 planDataGrid.Visibility = Visibility.Hidden;
                 storageDataGrid.Visibility = Visibility.Hidden;
                 analysisDataGrid.Visibility = Visibility.Visible;
+                analyzerDataGrid.Visibility = Visibility.Hidden;
+            }
+            if (comboBox.SelectedIndex == 8)
+            {
+                productDataGrid.Visibility = Visibility.Hidden;
+                contragentDataGrid.Visibility = Visibility.Hidden;
+                order_СustomerDataGrid.Visibility = Visibility.Hidden;
+                managerDataGrid.Visibility = Visibility.Hidden;
+                billDataGrid.Visibility = Visibility.Hidden;
+                planDataGrid.Visibility = Visibility.Hidden;
+                storageDataGrid.Visibility = Visibility.Hidden;
+                analysisDataGrid.Visibility = Visibility.Hidden;
+                analyzerDataGrid.Visibility = Visibility.Visible;
+
             }
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
-
-            company_easyDataSetProductTableAdapter.Update(company_easyDataSet.Product);
-            company_easyDataSetContragentTableAdapter.Update(company_easyDataSet.Contragent);
-            company_easyDataSetOrder_СustomerTableAdapter.Update(company_easyDataSet.Order_Сustomer);
-            company_easyDataSetManagerTableAdapter.Update(company_easyDataSet.Manager);
-            company_easyDataSetBillTableAdapter.Update(company_easyDataSet.Bill);
-            company_easyDataSetPlanTableAdapter.Update(company_easyDataSet.Plan);
-            company_easyDataSetStorageTableAdapter.Update(company_easyDataSet.Storage);
+            try
+            {
+                if (comboBox.SelectedIndex == 0)
+                {
+                    company_easyDataSetProductTableAdapter.Update(company_easyDataSet.Product);
+                }
+                if (comboBox.SelectedIndex == 1)
+                {
+                    company_easyDataSetContragentTableAdapter.Update(company_easyDataSet.Contragent);
+                }
+                if (comboBox.SelectedIndex == 2)
+                {
+                    company_easyDataSetOrder_СustomerTableAdapter.Update(company_easyDataSet.Order_Сustomer);
+                }
+                if (comboBox.SelectedIndex == 3)
+                {
+                    company_easyDataSetManagerTableAdapter.Update(company_easyDataSet.Manager);
+                }
+                if (comboBox.SelectedIndex == 4)
+                {
+                    company_easyDataSetBillTableAdapter.Update(company_easyDataSet.Bill);
+                }
+                if (comboBox.SelectedIndex == 5)
+                {
+                    company_easyDataSetPlanTableAdapter.Update(company_easyDataSet.Plan);
+                }
+                if (comboBox.SelectedIndex == 6)
+                {
+                    company_easyDataSetStorageTableAdapter.Update(company_easyDataSet.Storage);
+                }
+                company_easyDataSet.AcceptChanges();
+            }
+            catch(Exception ex2)
+            {
+                MessageBox.Show(ex2.);
+            }
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            queriesTableAdapter =  new company_easyDataSetTableAdapters.QueriesTableAdapter();
-            //var k = queriesTableAdapter.analysis_creater();
-            //MessageBox.Show(k.ToString());
-            //queriesTableAdapter.analyzer_create();
+            try
+            {
+                queriesTableAdapter = new company_easyDataSetTableAdapters.QueriesTableAdapter();
+                queriesTableAdapter.analysis_creater_2();
+                queriesTableAdapter.analyzer_creater_2();
+                company_easyDataSetAnalysisTableAdapter.Update(company_easyDataSet.Analysis);
+                company_easyDataSetAnalyzerTableAdapter.Update(company_easyDataSet.Analyzer);
+                company_easyDataSet.AcceptChanges();
+                company_easyDataSetAnalyzerTableAdapter.Fill(company_easyDataSet.Analyzer);
+                company_easyDataSetAnalysisTableAdapter.Fill(company_easyDataSet.Analysis);
 
+                MessageBox.Show("Успешно");
+            }
+            catch(Exception ex1)
+            {
+                MessageBox.Show(ex1.Message + "/n" + ex1.Source);
+            }
+ 
+        }
+
+        private void delete_button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (comboBox.SelectedIndex == 7)
+                {
+                    DataRowView analysis_row = (DataRowView)analysisDataGrid.SelectedItems[0];
+                    var current = analysis_row["ID_Analysis"];
+                    var oldRow = company_easyDataSet.Analysis.FindByID_Analysis(Convert.ToInt32(current));
+                    oldRow.Delete();
+                    company_easyDataSetAnalysisTableAdapter.Update(company_easyDataSet.Analysis);
+                    company_easyDataSet.AcceptChanges();
+                }
+
+                if (comboBox.SelectedIndex == 8)
+                {
+                    DataRowView row = (DataRowView)analyzerDataGrid.SelectedItems[0];
+                    var current = row["ID_Analyzer"];
+                    var oldRow = company_easyDataSet.Analyzer.FindByID_Analyzer(Convert.ToInt32(current));
+                    //MessageBox.Show(current.ToString());
+                    oldRow.Delete();
+                    company_easyDataSetAnalyzerTableAdapter.Update(company_easyDataSet.Analyzer);
+                    company_easyDataSet.AcceptChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message + "/n" + ex.Source);
+            }    
+                 
         }
     }
 }

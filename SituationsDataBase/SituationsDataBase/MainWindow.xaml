@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SituationsDataBase"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+        Title="DataBaseViewer" Height="350" Width="525" Loaded="Window_Loaded">
     <Window.Resources>
         <local:company_easyDataSet x:Key="company_easyDataSet"/>
         <CollectionViewSource x:Key="order_СustomerViewSource" Source="{Binding Order_Сustomer, Source={StaticResource company_easyDataSet}}"/>
@@ -16,9 +16,10 @@
         <CollectionViewSource x:Key="billViewSource" Source="{Binding Bill, Source={StaticResource company_easyDataSet}}"/>
         <CollectionViewSource x:Key="planViewSource" Source="{Binding Plan, Source={StaticResource company_easyDataSet}}"/>
         <CollectionViewSource x:Key="storageViewSource" Source="{Binding Storage, Source={StaticResource company_easyDataSet}}"/>
+        <CollectionViewSource x:Key="analyzerViewSource" Source="{Binding Analyzer, Source={StaticResource company_easyDataSet}}"/>
     </Window.Resources>
     <Grid DataContext="{StaticResource order_СustomerViewSource}">
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="168,19,0,0" VerticalAlignment="Top" Width="165"  SelectionChanged="comboBox_SelectionChanged">
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="168,19,0,0" VerticalAlignment="Top" Width="165"  SelectionChanged="comboBox_SelectionChanged" AutomationProperties.HelpText="Выберите таблицу для просмотра." IsHitTestVisible="True">
             <ComboBoxItem Content="Product" HorizontalAlignment="Left" Width="163"/>
             <ComboBoxItem Content="Contragent" HorizontalAlignment="Left" Width="163"/>
             <ComboBoxItem Content="Order_Customer" HorizontalAlignment="Left" Width="163"/>
@@ -27,6 +28,7 @@
             <ComboBoxItem Content="Plan" HorizontalAlignment="Left" Width="163"/>
             <ComboBoxItem Content="Storage" HorizontalAlignment="Left" Width="163"/>
             <ComboBoxItem Content="Analisys" HorizontalAlignment="Left" Width="163"/>
+            <ComboBoxItem Content="Analyzer" HorizontalAlignment="Left" Width="163"/>
         </ComboBox>
         <DataGrid x:Name="productDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource productViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
@@ -121,6 +123,16 @@
         </DataGrid>
         <Button x:Name="saveButton" Content="Save Changes" HorizontalAlignment="Left" Margin="368,19,0,0" VerticalAlignment="Top" Width="89" Height="22" Click="saveButton_Click"/>
         <Button x:Name="button" Content="Analise" HorizontalAlignment="Left" Margin="368,57,0,0" VerticalAlignment="Top" Width="89" Click="button_Click"/>
+        <DataGrid x:Name="analyzerDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource analyzerViewSource}}" Margin="57,96,60,23" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="iD_AnalyzerColumn" Binding="{Binding ID_Analyzer}" Header="ID Analyzer" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="saleColumn" Binding="{Binding Sale}" Header="Sale" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="unfinishedColumn" Binding="{Binding Unfinished}" Header="Unfinished" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="aVG_saleColumn" Binding="{Binding AVG_sale}" Header="AVG sale" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="clientColumn" Binding="{Binding Client}" Header="Client" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="delete_button" Content="Delete item" HorizontalAlignment="Left" Margin="57,19,0,0" VerticalAlignment="Top" Width="75" Click="delete_button_Click"/>
 
     </Grid>
 </Window>
