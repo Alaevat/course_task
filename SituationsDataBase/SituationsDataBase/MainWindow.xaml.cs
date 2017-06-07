@@ -260,7 +260,7 @@ namespace SituationsDataBase
             }
             catch(Exception ex2)
             {
-                MessageBox.Show(ex2.);
+                MessageBox.Show(ex2.Message + "/n" + ex2.Source);
             }
         }
 
